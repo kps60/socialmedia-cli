@@ -5,7 +5,7 @@ import { Person } from '@material-ui/icons';
 import useStyles from '../posts/Post/styles'
 import peak from '../../images/peak.jpg'
 import { useDispatch, useSelector } from 'react-redux';
-import { addFriend, confirmFriend } from '../../actions/posts';
+import { addFriend, confirmFriend, deleteFriend } from '../../actions/posts';
 
 
 const User = ({ user }) => {
@@ -28,10 +28,11 @@ const User = ({ user }) => {
         if (currentUser[0]?.connected) {
             for (let j = 0; j < currentUser[0]?.connected?.length; j++) {
                 if (user._id === currentUser[0]?.connected[j]?.userId) {
-                    setBtnText('CONNECTED');
-                    setBtnDisabled(true);
+                    setBtnText('DELETE');
+                    setBtnDisabled(false);
                     return;
                 }
+                
             }
         }
         for (let i = 0; i < currentUser[0]?.connecting?.length; i++) {
@@ -61,8 +62,11 @@ const User = ({ user }) => {
 
     const handleConfirmfrnd = () => {
         dispatch(confirmFriend(user._id));
-        setBtnText('CONNECTED');
-        setBtnDisabled(true);
+        setBtnText('DELETE');
+    }
+    const handleDelete=()=>{
+        dispatch(deleteFriend(user._id));
+        setBtnText('ADD FRIEND')
     }
     return (
         <Card className={classes.card} raised elevation={6}>
@@ -99,19 +103,11 @@ const User = ({ user }) => {
 
                 }
                 {
-                    btnText === 'CONNECTED' && (
-                        <Button variant='contained' color='primary' disabled={btnDisabled}>{btnText}</Button>
+                    btnText === 'DELETE' && (
+                        <Button variant='contained' color='primary' disabled={btnDisabled} onClick={handleDelete}>{btnText}</Button>
                     )
 
                 }
-                {/* if (btnText === 'ADD FRIEND') 
-                     console.log(user._id)
-                     dispatch(addFriend(user._id));
-                     
-                     if (btnText === 'Confirm') 
-                     dispatch(confirmFriend(user._id)) */}
-
-
             </div>
         </Card >
     )

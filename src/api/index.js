@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API = axios.create({ baseURL: 'https://socialmedia-dk.azurewebsites.net' })
+const API = axios.create({ baseURL: 'http://localhost:5000/' })
 // 'https://socialmedia-dk.azurewebsites.net'
 // 'http://localhost:5000/'
 API.interceptors.request.use((req) => {
@@ -30,5 +30,7 @@ export const google = (formData) => API.post('/users/google', formData);
 export const getUsers = () => API.get('/users');
 export const addFriend = (id) => API.patch('/users/mynetwork/request', { id });
 export const currentUser = (id) => API.get(`/users/${id}`);
-export const confirmFriend = (id, frndId) => API.patch(`/users/mynetwork/confirm/${id}`);
+export const confirmFriend = (id) => API.patch(`/users/mynetwork/confirm/${id}`);
+export const deleteFriend = (id) => API.patch(`/users/mynetwork/delete/${id}`);
+
 

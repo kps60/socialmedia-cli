@@ -56,6 +56,7 @@ const Auth = () => {
         console.log('Google SignIn was unsuccessful. Try Again later');
         console.log(error);
     }
+    
     const user = JSON.parse(localStorage.getItem('profile'));
     useEffect(() => {
         if (user) {

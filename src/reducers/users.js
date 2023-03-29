@@ -1,4 +1,4 @@
-import { FETCH_USERS, START_LOADING, END_LOADING, FETCH_USER, CURRENT_USER, UPDATE_CURRENTUSER, CONFIRM_FRIENDSHIP } from "../constants/actionTypes";
+import { FETCH_USERS, START_LOADING, END_LOADING, FETCH_USER, CURRENT_USER, UPDATE_CURRENTUSER, CONFIRM_FRIENDSHIP, DELETE_FRIENDSHIP } from "../constants/actionTypes";
 
 
 export default (state = { isLoading: true, users: [], currentUser: [] }, action) => {
@@ -10,6 +10,8 @@ export default (state = { isLoading: true, users: [], currentUser: [] }, action)
             }
         case CURRENT_USER:
             return { ...state, currentUser: state.users?.filter(use => use._id === action.payload.result._id) }
+        case DELETE_FRIENDSHIP:
+            return { ...state, currentUser: state.currentUser.connected.filter(use => use.userId !== action.payload.id) };
         case UPDATE_CURRENTUSER:
             return { ...state, currentUser: action.payload }
         case FETCH_USER, CONFIRM_FRIENDSHIP:

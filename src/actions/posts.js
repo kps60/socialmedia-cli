@@ -1,14 +1,13 @@
-import { FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, START_LOADING, END_LOADING, COMMENT, FETCH_USERS, FETCH_USER, CURRENT_USER, UPDATE_CURRENTUSER,CONFIRM_FRIENDSHIP } from "../constants/actionTypes"
+import { FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, START_LOADING, END_LOADING, COMMENT, FETCH_USERS, FETCH_USER, CURRENT_USER, UPDATE_CURRENTUSER, CONFIRM_FRIENDSHIP, DELETE_FRIENDSHIP } from "../constants/actionTypes"
 
 import * as api from "../api"
 
 //action creators
-export const getPost = (_id) => async (dispatch) => {
+export const getPost = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING })
-        const { data } = await api.fetchPost(_id)
+        const { data } = await api.fetchPost(id)
         dispatch({ type: FETCH_POST, payload: data })
-        console.log(data)
         dispatch({ type: END_LOADING })
         return data;
     } catch (error) {
@@ -23,7 +22,6 @@ export const getPosts = () => async (dispatch) => {
         const { data } = await api.fetchPosts()
         const action = { type: FETCH_ALL, payload: data }
         dispatch(action);
-        console.log(data)
         dispatch({ type: END_LOADING })
     } catch (error) {
         console.log(error);
@@ -46,10 +44,10 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 export const createPost = (post, history) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING })
-        
+
         const { data } = await api.createPost(post)
         dispatch({ type: CREATE, payload: data })
-
+        
         dispatch({ type: END_LOADING })
         
         // dispatch(getPosts())
@@ -59,9 +57,11 @@ export const createPost = (post, history) => async (dispatch) => {
 }
 export const updatePost = (_id, post) => async (dispatch) => {
     try {
+        dispatch({ type: START_LOADING })
         const { data } = await api.updatePost(_id, post)
         dispatch({ type: UPDATE, payload: data })
         // dispatch(getPosts())
+        dispatch({ type: END_LOADING })
     } catch (error) {
         console.log(error);
     }
@@ -101,7 +101,6 @@ export const getUsers = () => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING })
         const { data } = await api.getUsers();
-        console.log(data)
         dispatch({ type: FETCH_USERS, payload: data })
         dispatch({ type: END_LOADING })
         dispatch(currentUser())
@@ -123,7 +122,6 @@ export const addFriend = (id) => async (dispatch) => {
 export const currentUser = () => async (dispatch) => {
     try {
         const user = JSON.parse(localStorage.getItem('profile'));
-        console.log(user)
         dispatch({ type: CURRENT_USER, payload: user })
     } catch (error) {
         console.log(error);
@@ -132,9 +130,17 @@ export const currentUser = () => async (dispatch) => {
 export const confirmFriend = (id) => async (dispatch) => {
     try {
         const { data } = await api.confirmFriend(id);
-        console.log(data)
         dispatch({ type: CONFIRM_FRIENDSHIP, payload: data })
 
+    } catch (error) {
+        console.log(error);
+    }
+}
+export const deleteFriend = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.deleteFriend(id);
+        console.log(data)
+        dispatch({ type: DELETE_FRIENDSHIP, payload: id });
     } catch (error) {
         console.log(error);
     }

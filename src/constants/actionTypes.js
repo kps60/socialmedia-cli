@@ -15,6 +15,8 @@ export const FETCH_USER = 'FETCH_USER';
 export const UPDATE_CURRENTUSER = 'UPDATE_CURRENTUSER';
 export const CURRENT_USER = 'CURRENT_USER';
 export const CONFIRM_FRIENDSHIP = 'CONFIRM_FRIENDSHIP';
+export const DELETE_FRIENDSHIP = 'DELETE_FRIENDSHIP';
+
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
 export const GOOGLE = 'GOOGLE';

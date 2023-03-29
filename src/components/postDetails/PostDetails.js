@@ -33,7 +33,7 @@ const PostDetails = () => {
   }
   const recommendedPosts = posts?.filter(({ _id }) => _id !== post._id)
   console.log(recommendedPosts)
-  const openPost = (_id) => history.push(`/posts/${_id}`)
+  const openPost = (id) => history.push(`/posts/${id}`)
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
