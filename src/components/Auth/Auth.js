@@ -34,8 +34,6 @@ const Auth = () => {
         } else {
             dispatch(signin(formData, history))
         }
-
-        console.log(formData)
     }
     const switchMode = () => {
         setIsSignUp(!isSignup);

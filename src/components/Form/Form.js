@@ -25,9 +25,7 @@ const Form = ({ currentId, setCurrentId }) => {
     if (currentId) {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }))
     } else {
-      if(FileBase.onDone){
         dispatch(createPost({ ...postData, name: user?.result?.name }, history))
-      }
     }
     clear();
   };
