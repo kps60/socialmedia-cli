@@ -139,9 +139,9 @@ export const confirmFriend = (id) => async (dispatch) => {
 export const deleteFriend = (id) => async (dispatch) => {
     try {
         const { data } = await api.deleteFriend(id);
-        console.log(data)
-        dispatch({ type: DELETE_FRIENDSHIP, payload: id });
+        dispatch({ type: CURRENT_USER, payload: data });
     } catch (error) {
         console.log(error);
     }
+    
 }
